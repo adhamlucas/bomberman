@@ -1,0 +1,42 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+AddRelTag("dashed-tag", $lineStyle = DashedLine())
+
+title Diagrama de Componentes - Portabilidade de Bomberman
+
+
+Person(jogador, "Jogador", "Pessoa que interage com o jogo Bomberman")
+
+Container_Boundary(bomberman_container, "Bomberman Portado"){
+Component(bomberman, "Bomberman", "C#", "Controlador de lógica de mecânicas do personagem principal do jogo")
+Component(bomb, "Bomba", "C#", "Controlador de lógica de mecânicas do personagem principal do jogo")
+Component(explosion, "Explosão", "C#", "Controlador de animação de explosão de bomba")
+Component(enemy, "Inimigos", "C#", "Controlador de lógica de mecânicas dos diferentes tipos de inimigos do jogo")
+Component(scenario, "Cenário", "C#", "Controlador de criação de blocos e ")
+Component(destructibles, "Blocos destruíveis", "C#", "Controlador de Destruição de blocos")
+
+Component(rigdbody2D, "Ridgbody2D", "Unity component", "Componente que permite ao atribuir forças físicas como gravidade aos sprites de jogo")
+Component(tillemap_collider, "TileMap Collider", "Unity component", "Componente que adiciona uma boundary box ao tile que o utilizado para que lógicas envolvendo colisão sejam implementadas.")
+Component(circle_collider2D, "CircleCollider2D", "Unity component", "Componente que adiciona uma boundary circle ao GameObject e permite que lógica de colisão seja implementada.")
+
+
+
+
+Rel(jogador, bomberman, "Movimenta o personagem", "Por meio de telcas de seta")
+Rel(jogador, bomb, "Lançar bombas", "Por meio de tecla de lançamento")
+Rel(bomb, explosion, "Aciona método de renderização de", "Execução de método de objeto")
+Rel(bomb, destructibles, "Utiliza", "Impotação de componente")
+
+Rel(bomberman, rigdbody2D, "Utiliza", "Impotação de componente", $tags="dashed-tag")
+Rel(bomb, rigdbody2D, "Utiliza", "Impotação de componente", $tags="dashed-tag")
+Rel(enemy, rigdbody2D, "Utiliza", "Impotação de componente", $tags="dashed-tag")
+Rel(scenario, rigdbody2D, "Utiliza", "Impotação de componente", $tags="dashed-tag")
+
+Rel(destructibles, tillemap_collider, "Utiliza", "Impotação de componente", $tags="dashed-tag")
+
+Rel(bomb, circle_collider2D, "Utiliza", "Impotação de componente", $tags="dashed-tag")
+Rel(enemy, circle_collider2D, "Utiliza", "Impotação de componente", $tags="dashed-tag")
+}
+@enduml
