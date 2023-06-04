@@ -1,0 +1,13 @@
+@startuml
+!include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Diagrama de contexto - Portabilidade de Bomberman
+
+Person(jogador, "Jogador", "Pessoa que interage com o jogo Bomberman")
+System(port_bomberman, "Bomberman portado", "Desenvolvido através da plataforma Unity possuindo as mecânicas de seu jogo original")
+System_Ext(bomberman, "Bomberman", "Jogo do estilo maze desenvolvido pela Hudson Soft ao qual o personagem principal deve derrotar inimigos atráves do lançamento de bombas")
+
+Rel(jogador, port_bomberman, "Interage com", "Por meio de alguns botões preselecionados do teclado")
+Rel(port_bomberman, bomberman, "Baseado em")
+@enduml
